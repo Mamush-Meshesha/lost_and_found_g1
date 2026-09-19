@@ -94,7 +94,7 @@ export const LostFoundApp: React.FC = () => {
 
   const handleSelectUser = (user: IUser) => {
     setCurrentUser(user);
-    localStorage.setItem('demo_user_id', user.id);
+    localStorage.setItem('demo_user__id', user._id);
   };
 
   const handleOpenCreateModal = () => {
@@ -131,7 +131,7 @@ export const LostFoundApp: React.FC = () => {
 
     try {
       if (editingItem) {
-        const res = await api.updateItem(editingItem.id, {
+        const res = await api.updateItem(editingItem._id, {
           title: formTitle,
           description: formDescription,
           category: formCategory,
@@ -168,13 +168,13 @@ export const LostFoundApp: React.FC = () => {
     }
   };
 
-  const handleDeleteItem = async (id: string) => {
+  const handleDeleteItem = async (_id: string) => {
     if (window.confirm('Are you sure you want to delete this lost & found report?')) {
       try {
-        const res = await api.deleteItem(id);
+        const res = await api.deleteItem(_id);
         if (res.success) {
           fetchItems();
-          if (selectedItemForMatch?.id === id) {
+          if (selectedItemForMatch?._id === _id) {
             setSelectedItemForMatch(null);
           }
         }
@@ -189,7 +189,7 @@ export const LostFoundApp: React.FC = () => {
     setLoadingMatches(true);
     setActiveTab('matching');
     try {
-      const res = await api.getItemMatches(item.id);
+      const res = await api.getItemMatches(item._id);
       if (res.success) {
         setMatches(res.matches);
       }
@@ -209,7 +209,7 @@ export const LostFoundApp: React.FC = () => {
       <header
         style={{
           backgroundColor: 'var(--color-surface)',
-          borderBottom: '1px solid var(--color-border)',
+          borderBottom: '1px sol_id var(--color-border)',
           position: 'sticky',
           top: 0,
           zIndex: 40,
@@ -257,16 +257,16 @@ export const LostFoundApp: React.FC = () => {
                 backgroundColor: 'var(--color-surface-card)',
                 padding: '0.35rem 0.75rem',
                 borderRadius: 'var(--radius-full)',
-                border: '1px solid var(--color-border)',
+                border: '1px sol_id var(--color-border)',
               }}
             >
               <span style={{ fontSize: '0.75rem', color: 'var(--color-text-dim)', fontWeight: 600 }}>As:</span>
               <div style={{ display: 'flex', gap: '0.3rem' }}>
                 {demoUsers.map((user) => {
-                  const isSelected = currentUser?.id === user.id;
+                  const isSelected = currentUser?._id === user._id;
                   return (
                     <button
-                      key={user.id}
+                      key={user._id}
                       onClick={() => handleSelectUser(user)}
                       style={{
                         padding: '0.25rem 0.6rem',
@@ -319,7 +319,7 @@ export const LostFoundApp: React.FC = () => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            borderBottom: '1px solid var(--color-border)',
+            borderBottom: '1px sol_id var(--color-border)',
             paddingBottom: '1rem',
             marginBottom: '1.5rem',
           }}
@@ -337,7 +337,7 @@ export const LostFoundApp: React.FC = () => {
                 fontWeight: 700,
                 backgroundColor: activeTab === 'feed' ? 'var(--color-primary-light)' : 'transparent',
                 color: activeTab === 'feed' ? 'var(--color-primary)' : 'var(--color-text-muted)',
-                border: activeTab === 'feed' ? '1px solid var(--color-primary)' : '1px solid transparent',
+                border: activeTab === 'feed' ? '1px sol_id var(--color-primary)' : '1px sol_id transparent',
                 cursor: 'pointer',
               }}
             >
@@ -363,7 +363,7 @@ export const LostFoundApp: React.FC = () => {
                 fontWeight: 700,
                 backgroundColor: activeTab === 'matching' ? 'rgba(6, 182, 212, 0.15)' : 'transparent',
                 color: activeTab === 'matching' ? 'var(--color-secondary)' : 'var(--color-text-muted)',
-                border: activeTab === 'matching' ? '1px solid var(--color-secondary)' : '1px solid transparent',
+                border: activeTab === 'matching' ? '1px sol_id var(--color-secondary)' : '1px sol_id transparent',
                 cursor: 'pointer',
               }}
             >
@@ -445,7 +445,7 @@ export const LostFoundApp: React.FC = () => {
                       padding: '0.65rem 1rem 0.65rem 2.5rem',
                       borderRadius: 'var(--radius-md)',
                       backgroundColor: 'var(--color-bg)',
-                      border: '1px solid var(--color-border)',
+                      border: '1px sol_id var(--color-border)',
                       color: 'var(--color-text)',
                       fontSize: '0.9rem',
                       outline: 'none',
@@ -454,7 +454,7 @@ export const LostFoundApp: React.FC = () => {
                 </div>
 
                 {/* Status Pills */}
-                <div style={{ display: 'flex', backgroundColor: 'var(--color-bg)', borderRadius: 'var(--radius-md)', padding: '0.2rem', border: '1px solid var(--color-border)' }}>
+                <div style={{ display: 'flex', backgroundColor: 'var(--color-bg)', borderRadius: 'var(--radius-md)', padding: '0.2rem', border: '1px sol_id var(--color-border)' }}>
                   {['ALL', 'LOST', 'FOUND'].map((type) => (
                     <button
                       key={type}
@@ -483,7 +483,7 @@ export const LostFoundApp: React.FC = () => {
                     padding: '0.65rem 1rem',
                     borderRadius: 'var(--radius-md)',
                     backgroundColor: 'var(--color-bg)',
-                    border: '1px solid var(--color-border)',
+                    border: '1px sol_id var(--color-border)',
                     color: 'var(--color-text)',
                     fontSize: '0.85rem',
                     fontWeight: 600,
@@ -496,7 +496,7 @@ export const LostFoundApp: React.FC = () => {
               </div>
 
               {/* Category Pills */}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid var(--color-border)' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '1rem', paddingTop: '1rem', borderTop: '1px sol_id var(--color-border)' }}>
                 <span style={{ fontSize: '0.8rem', color: 'var(--color-text-dim)', fontWeight: 600, alignSelf: 'center', marginRight: '0.5rem' }}>
                   Category:
                 </span>
@@ -511,7 +511,7 @@ export const LostFoundApp: React.FC = () => {
                       fontWeight: selectedCategory === cat ? 700 : 500,
                       backgroundColor: selectedCategory === cat ? 'var(--color-secondary-light)' : 'transparent',
                       color: selectedCategory === cat ? 'var(--color-secondary)' : 'var(--color-text-muted)',
-                      border: selectedCategory === cat ? '1px solid var(--color-secondary)' : '1px solid var(--color-border)',
+                      border: selectedCategory === cat ? '1px sol_id var(--color-secondary)' : '1px sol_id var(--color-border)',
                       cursor: 'pointer',
                     }}
                   >
@@ -521,7 +521,7 @@ export const LostFoundApp: React.FC = () => {
               </div>
             </div>
 
-            {/* Loading / Items Grid */}
+            {/* Loading / Items Gr_id */}
             {loading ? (
               <div style={{ textAlign: 'center', padding: '4rem 0', color: 'var(--color-text-muted)' }}>
                 Loading lost & found reports...
@@ -552,12 +552,12 @@ export const LostFoundApp: React.FC = () => {
                 </button>
               </div>
             ) : (
-              <div className="grid-3">
+              <div className="gr_id-3">
                 {items.map((item) => {
-                  const isOwner = currentUser?.id === item.userId || currentUser?.id === 'user-1';
+                  const isOwner = currentUser?._id === item.userId || currentUser?._id === 'user-1';
                   return (
                     <div
-                      key={item.id}
+                      key={item._id}
                       className="card-base card-hover"
                       style={{
                         display: 'flex',
@@ -572,10 +572,10 @@ export const LostFoundApp: React.FC = () => {
                         {item.imageUrl && (
                           <div
                             style={{
-                              width: '100%',
+                              width : '100%',
                               height: '180px',
                               borderRadius: 'var(--radius-md)',
-                              overflow: 'hidden',
+                              overflow: 'h_idden',
                               marginBottom: '1rem',
                               backgroundColor: 'var(--color-bg)',
                             }}
@@ -599,7 +599,7 @@ export const LostFoundApp: React.FC = () => {
                               letterSpacing: '0.05em',
                               backgroundColor: item.type === 'LOST' ? 'rgba(239, 68, 68, 0.2)' : 'rgba(16, 185, 129, 0.2)',
                               color: item.type === 'LOST' ? '#ef4444' : '#10b981',
-                              border: `1px solid ${item.type === 'LOST' ? 'rgba(239, 68, 68, 0.4)' : 'rgba(16, 185, 129, 0.4)'}`,
+                              border: `1px sol_id ${item.type === 'LOST' ? 'rgba(239, 68, 68, 0.4)' : 'rgba(16, 185, 129, 0.4)'}`,
                             }}
                           >
                             {item.type}
@@ -633,7 +633,7 @@ export const LostFoundApp: React.FC = () => {
                             display: '-webkit-box',
                             WebkitLineClamp: 3,
                             WebkitBoxOrient: 'vertical',
-                            overflow: 'hidden',
+                            overflow: 'h_idden',
                           }}
                         >
                           {item.description}
@@ -662,7 +662,7 @@ export const LostFoundApp: React.FC = () => {
                       <div
                         style={{
                           paddingTop: '1rem',
-                          borderTop: '1px solid var(--color-border)',
+                          borderTop: '1px sol_id var(--color-border)',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'space-between',
@@ -681,7 +681,7 @@ export const LostFoundApp: React.FC = () => {
                             color: 'var(--color-secondary)',
                             fontWeight: 700,
                             fontSize: '0.8rem',
-                            border: '1px solid rgba(6, 182, 212, 0.3)',
+                            border: '1px sol_id rgba(6, 182, 212, 0.3)',
                             cursor: 'pointer',
                           }}
                         >
@@ -699,7 +699,7 @@ export const LostFoundApp: React.FC = () => {
                                 borderRadius: 'var(--radius-md)',
                                 backgroundColor: 'var(--color-surface-card)',
                                 color: 'var(--color-text-muted)',
-                                border: '1px solid var(--color-border)',
+                                border: '1px sol_id var(--color-border)',
                                 cursor: 'pointer',
                               }}
                             >
@@ -707,14 +707,14 @@ export const LostFoundApp: React.FC = () => {
                             </button>
 
                             <button
-                              onClick={() => handleDeleteItem(item.id)}
+                              onClick={() => handleDeleteItem(item._id)}
                               title="Delete Report"
                               style={{
                                 padding: '0.4rem',
                                 borderRadius: 'var(--radius-md)',
                                 backgroundColor: 'rgba(239, 68, 68, 0.1)',
                                 color: '#ef4444',
-                                border: '1px solid rgba(239, 68, 68, 0.3)',
+                                border: '1px sol_id rgba(239, 68, 68, 0.3)',
                                 cursor: 'pointer',
                               }}
                             >
@@ -743,7 +743,7 @@ export const LostFoundApp: React.FC = () => {
               </div>
 
               <p style={{ fontSize: '0.95rem', color: 'var(--color-text-muted)', marginBottom: '1.5rem' }}>
-                Select any reported lost or found item below to analyze candidate listings across categories, title/description TF-IDF keyword overlap, geographical location proximity, and report date deltas.
+                Select any reported lost or found item below to analyze cand_idate listings across categories, title/description TF-_idF keyword overlap, geographical location proximity, and report date deltas.
               </p>
 
               {/* Item Selector Dropdown */}
@@ -752,9 +752,9 @@ export const LostFoundApp: React.FC = () => {
                   Target Item for Matching:
                 </label>
                 <select
-                  value={selectedItemForMatch?.id || ''}
+                  value={selectedItemForMatch?._id || ''}
                   onChange={(e) => {
-                    const found = items.find((i) => i.id === e.target.value);
+                    const found = items.find((i) => i._id === e.target.value);
                     if (found) handleViewMatches(found);
                   }}
                   style={{
@@ -762,7 +762,7 @@ export const LostFoundApp: React.FC = () => {
                     padding: '0.65rem 1rem',
                     borderRadius: 'var(--radius-md)',
                     backgroundColor: 'var(--color-bg)',
-                    border: '1px solid var(--color-secondary)',
+                    border: '1px sol_id var(--color-secondary)',
                     color: 'var(--color-text)',
                     fontSize: '0.9rem',
                     fontWeight: 600,
@@ -770,7 +770,7 @@ export const LostFoundApp: React.FC = () => {
                 >
                   <option value="">-- Select an item to run match engine --</option>
                   {items.map((i) => (
-                    <option key={i.id} value={i.id}>
+                    <option key={i._id} value={i._id}>
                       [{i.type}] {i.title} - {i.location}
                     </option>
                   ))}
@@ -786,7 +786,7 @@ export const LostFoundApp: React.FC = () => {
                   style={{
                     marginBottom: '2rem',
                     backgroundColor: 'rgba(99, 102, 241, 0.05)',
-                    border: '1px solid var(--color-primary-glow)',
+                    border: '1px sol_id var(--color-primary-glow)',
                     padding: '1.5rem',
                   }}
                 >
@@ -829,7 +829,7 @@ export const LostFoundApp: React.FC = () => {
 
                 {/* Match Results */}
                 <h4 style={{ fontSize: '1.15rem', marginBottom: '1rem' }}>
-                  Potential Matches ({matches.length} Candidates Found)
+                  Potential Matches ({matches.length} Cand_idates Found)
                 </h4>
 
                 {loadingMatches ? (
@@ -839,14 +839,14 @@ export const LostFoundApp: React.FC = () => {
                 ) : matches.length === 0 ? (
                   <div className="card-base" style={{ textAlign: 'center', padding: '3rem 2rem', backgroundColor: 'var(--color-surface-card)' }}>
                     <p style={{ fontSize: '0.95rem', color: 'var(--color-text-muted)' }}>
-                      No high-confidence matches found for this item yet. Check back when new reports are submitted!
+                      No high-conf_idence matches found for this item yet. Check back when new reports are submitted!
                     </p>
                   </div>
                 ) : (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                    {matches.map((m, idx) => (
+                    {matches.map((m, _idx) => (
                       <div
-                        key={m.item.id}
+                        key={m.item._id}
                         className="card-base"
                         style={{
                           backgroundColor: 'var(--color-surface)',
@@ -864,7 +864,7 @@ export const LostFoundApp: React.FC = () => {
                                 borderRadius: '50%',
                                 backgroundColor: m.score > 70 ? 'rgba(16, 185, 129, 0.15)' : 'rgba(245, 158, 11, 0.15)',
                                 color: m.score > 70 ? '#10b981' : '#f59e0b',
-                                border: `2px solid ${m.score > 70 ? '#10b981' : '#f59e0b'}`,
+                                border: `2px sol_id ${m.score > 70 ? '#10b981' : '#f59e0b'}`,
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'center',
@@ -879,7 +879,7 @@ export const LostFoundApp: React.FC = () => {
 
                             <div>
                               <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-secondary)' }}>
-                                MATCH CANDIDATE #{idx + 1}
+                                MATCH CAND_idATE #{_idx + 1}
                               </div>
                               <h4 style={{ fontSize: '1.15rem', color: 'var(--color-text)' }}>{m.item.title}</h4>
                             </div>
@@ -930,7 +930,7 @@ export const LostFoundApp: React.FC = () => {
                         </div>
 
                         {/* Contact details */}
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem', paddingTop: '0.75rem', borderTop: '1px solid var(--color-border)' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem', paddingTop: '0.75rem', borderTop: '1px sol_id var(--color-border)' }}>
                           <div style={{ display: 'flex', gap: '1.25rem', fontSize: '0.825rem', color: 'var(--color-text-muted)' }}>
                             <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                               <MailIcon size={14} /> {m.item.contactEmail}
@@ -1030,7 +1030,7 @@ export const LostFoundApp: React.FC = () => {
                       cursor: 'pointer',
                       backgroundColor: formType === 'LOST' ? 'rgba(239, 68, 68, 0.2)' : 'var(--color-bg)',
                       color: formType === 'LOST' ? '#ef4444' : 'var(--color-text-muted)',
-                      border: `1px solid ${formType === 'LOST' ? '#ef4444' : 'var(--color-border)'}`,
+                      border: `1px sol_id ${formType === 'LOST' ? '#ef4444' : 'var(--color-border)'}`,
                     }}
                   >
                     <input
@@ -1055,7 +1055,7 @@ export const LostFoundApp: React.FC = () => {
                       cursor: 'pointer',
                       backgroundColor: formType === 'FOUND' ? 'rgba(16, 185, 129, 0.2)' : 'var(--color-bg)',
                       color: formType === 'FOUND' ? '#10b981' : 'var(--color-text-muted)',
-                      border: `1px solid ${formType === 'FOUND' ? '#10b981' : 'var(--color-border)'}`,
+                      border: `1px sol_id ${formType === 'FOUND' ? '#10b981' : 'var(--color-border)'}`,
                     }}
                   >
                     <input
@@ -1087,7 +1087,7 @@ export const LostFoundApp: React.FC = () => {
                     padding: '0.65rem 0.85rem',
                     borderRadius: 'var(--radius-md)',
                     backgroundColor: 'var(--color-bg)',
-                    border: '1px solid var(--color-border)',
+                    border: '1px sol_id var(--color-border)',
                     color: 'var(--color-text)',
                     fontSize: '0.9rem',
                   }}
@@ -1095,7 +1095,7 @@ export const LostFoundApp: React.FC = () => {
               </div>
 
               {/* Category & Date */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+              <div style={{ display: 'gr_id', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                 <div>
                   <label style={{ fontSize: '0.85rem', fontWeight: 700, display: 'block', marginBottom: '0.4rem', color: 'var(--color-text-muted)' }}>
                     Category *
@@ -1108,7 +1108,7 @@ export const LostFoundApp: React.FC = () => {
                       padding: '0.65rem 0.85rem',
                       borderRadius: 'var(--radius-md)',
                       backgroundColor: 'var(--color-bg)',
-                      border: '1px solid var(--color-border)',
+                      border: '1px sol_id var(--color-border)',
                       color: 'var(--color-text)',
                       fontSize: '0.9rem',
                     }}
@@ -1135,7 +1135,7 @@ export const LostFoundApp: React.FC = () => {
                       padding: '0.65rem 0.85rem',
                       borderRadius: 'var(--radius-md)',
                       backgroundColor: 'var(--color-bg)',
-                      border: '1px solid var(--color-border)',
+                      border: '1px sol_id var(--color-border)',
                       color: 'var(--color-text)',
                       fontSize: '0.9rem',
                     }}
@@ -1159,7 +1159,7 @@ export const LostFoundApp: React.FC = () => {
                     padding: '0.65rem 0.85rem',
                     borderRadius: 'var(--radius-md)',
                     backgroundColor: 'var(--color-bg)',
-                    border: '1px solid var(--color-border)',
+                    border: '1px sol_id var(--color-border)',
                     color: 'var(--color-text)',
                     fontSize: '0.9rem',
                   }}
@@ -1174,7 +1174,7 @@ export const LostFoundApp: React.FC = () => {
                 <textarea
                   required
                   rows={3}
-                  placeholder="Provide distinct marks, color, stickers, or details..."
+                  placeholder="Prov_ide distinct marks, color, stickers, or details..."
                   value={formDescription}
                   onChange={(e) => setFormDescription(e.target.value)}
                   style={{
@@ -1182,7 +1182,7 @@ export const LostFoundApp: React.FC = () => {
                     padding: '0.65rem 0.85rem',
                     borderRadius: 'var(--radius-md)',
                     backgroundColor: 'var(--color-bg)',
-                    border: '1px solid var(--color-border)',
+                    border: '1px sol_id var(--color-border)',
                     color: 'var(--color-text)',
                     fontSize: '0.9rem',
                   }}
@@ -1190,7 +1190,7 @@ export const LostFoundApp: React.FC = () => {
               </div>
 
               {/* Image URL & Phone */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+              <div style={{ display: 'gr_id', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                 <div>
                   <label style={{ fontSize: '0.85rem', fontWeight: 700, display: 'block', marginBottom: '0.4rem', color: 'var(--color-text-muted)' }}>
                     Image URL (Optional)
@@ -1205,7 +1205,7 @@ export const LostFoundApp: React.FC = () => {
                       padding: '0.65rem 0.85rem',
                       borderRadius: 'var(--radius-md)',
                       backgroundColor: 'var(--color-bg)',
-                      border: '1px solid var(--color-border)',
+                      border: '1px sol_id var(--color-border)',
                       color: 'var(--color-text)',
                       fontSize: '0.9rem',
                     }}
@@ -1226,7 +1226,7 @@ export const LostFoundApp: React.FC = () => {
                       padding: '0.65rem 0.85rem',
                       borderRadius: 'var(--radius-md)',
                       backgroundColor: 'var(--color-bg)',
-                      border: '1px solid var(--color-border)',
+                      border: '1px sol_id var(--color-border)',
                       color: 'var(--color-text)',
                       fontSize: '0.9rem',
                     }}
@@ -1243,7 +1243,7 @@ export const LostFoundApp: React.FC = () => {
                     padding: '0.6rem 1.25rem',
                     borderRadius: 'var(--radius-md)',
                     backgroundColor: 'transparent',
-                    border: '1px solid var(--color-border)',
+                    border: '1px sol_id var(--color-border)',
                     color: 'var(--color-text-muted)',
                     cursor: 'pointer',
                   }}
