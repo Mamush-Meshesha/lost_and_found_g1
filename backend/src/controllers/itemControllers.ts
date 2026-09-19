@@ -59,6 +59,26 @@ const getItemById = async (req: any, res: Response) => {
 
 const updateItem = async (req: any, res: Response) => {
   try {
+    const files = req.files as Express.Multer.File[];
+    const imageUrls: string[] = [];
+
+    for (const file of files || []) {
+      const result = await uploadToCloudinary(file.buffer);
+      imageUrls.push(result.secure_url);
+    }
+
+    if (imageUrls.length > 0) {
+      req.body.images = imageUrls;
+    }
+
+    const location =
+      typeof req.body.location === "string"
+        ? JSON.parse(req.body.location)
+        : req.body.location;
+
+    if (location) {
+      req.body.location = location;
+    }
     const updatedItem = await Item.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
