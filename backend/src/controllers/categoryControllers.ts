@@ -1,11 +1,16 @@
 import { Request, Response } from 'express';
 import Category from '../models/category.js';
 
+// 1. Define the custom interface to include the user object from the JWT
+export interface AuthRequest extends Request {
+  user?: any; // You can replace 'any' with a stricter type like { id: string, email: string } later
+}
+
 // @desc    Get all categories
 // @route   GET /api/categories
+// (Public route, so we leave it as standard Request)
 export const getCategories = async (_req: Request, res: Response): Promise<void> => {
   try {
-    // Fetch all categories and sort them so the newest ones appear first
     const categories = await Category.find().sort({ createdAt: -1 });
     res.status(200).json(categories);
   } catch (error) {
@@ -18,18 +23,20 @@ export const getCategories = async (_req: Request, res: Response): Promise<void>
 
 // @desc    Create a new category
 // @route   POST /api/categories
-export const createCategory = async (req: Request, res: Response): Promise<void> => {
+// 2. Change Request to AuthRequest here
+export const createCategory = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const { name, description, icon } = req.body;
 
-    // Check if a category with this name already exists
+    // Optional: You now have access to the user making the request!
+    // console.log("Category being created by user ID:", req.user.id);
+
     const categoryExists = await Category.findOne({ name });
     if (categoryExists) {
       res.status(400).json({ message: 'Category already exists' });
       return;
     }
 
-    // Create and save the new category
     const category = await Category.create({ name, description, icon });
     res.status(201).json(category);
   } catch (error) {
@@ -42,12 +49,11 @@ export const createCategory = async (req: Request, res: Response): Promise<void>
 
 // @desc    Update a category
 // @route   PUT /api/categories/:id
-export const updateCategory = async (req: Request, res: Response): Promise<void> => {
+// 2. Change Request to AuthRequest here
+export const updateCategory = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     
-    // Find the category by ID and update it. 
-    // { new: true } ensures it returns the updated document, not the old one.
     const updatedCategory = await Category.findByIdAndUpdate(
       id,
       req.body,
@@ -70,7 +76,8 @@ export const updateCategory = async (req: Request, res: Response): Promise<void>
 
 // @desc    Delete a category
 // @route   DELETE /api/categories/:id
-export const deleteCategory = async (req: Request, res: Response): Promise<void> => {
+// 2. Change Request to AuthRequest here
+export const deleteCategory = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
 

@@ -2,16 +2,31 @@ import { Response } from "express";
 import Item from "../models/items.js";
 import { uploadToCloudinary } from "../lib/cloudinary.js";
 
-const createItem = async (req: any, res: Response) => {
+import { Request } from "express";
+
+interface AuthRequest extends Request {
+  user?: any;
+}
+
+const createItem = async (req: AuthRequest, res: Response) => {
   try {
+    if (!req.user?.id) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized",
+      });
+    }
+
     const files = req.files as Express.Multer.File[];
     const imageUrls: string[] = [];
 
+    // Upload images to Cloudinary
     for (const file of files || []) {
       const result = await uploadToCloudinary(file.buffer);
       imageUrls.push(result.secure_url);
     }
 
+    // Parse location when using multipart/form-data
     const location =
       typeof req.body.location === "string"
         ? JSON.parse(req.body.location)
@@ -19,7 +34,10 @@ const createItem = async (req: any, res: Response) => {
 
     const item = await Item.create({
       ...req.body,
-      //   userId: req.userId,
+
+      // Always get userId from the authenticated user
+      userId: req.user.id,
+
       location,
       images: imageUrls,
     });
@@ -35,6 +53,7 @@ const createItem = async (req: any, res: Response) => {
     });
   }
 };
+
 
 const getItems = async (_req: any, res: Response) => {
   try {
@@ -59,6 +78,26 @@ const getItemById = async (req: any, res: Response) => {
 
 const updateItem = async (req: any, res: Response) => {
   try {
+    const files = req.files as Express.Multer.File[];
+    const imageUrls: string[] = [];
+
+    for (const file of files || []) {
+      const result = await uploadToCloudinary(file.buffer);
+      imageUrls.push(result.secure_url);
+    }
+
+    if (imageUrls.length > 0) {
+      req.body.images = imageUrls;
+    }
+
+    const location =
+      typeof req.body.location === "string"
+        ? JSON.parse(req.body.location)
+        : req.body.location;
+
+    if (location) {
+      req.body.location = location;
+    }
     const updatedItem = await Item.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
