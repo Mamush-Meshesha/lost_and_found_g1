@@ -24,9 +24,12 @@ app.use("/api/categories", categoryRoutes);
 
 // Health check route
 app.get("/", (_req: Request, res: Response) => {
-  res.status(200).json({ success: true, message: "MERN backend is running" });
+  res.status(200).json({ success: true, message: "server  is running" });
 });
 
+app.use("/api/items", itemRoutes);
+
 app.listen(PORT, () => {
+  connectDB();
   console.log(`Server running on http://localhost:${PORT}`);
 });
