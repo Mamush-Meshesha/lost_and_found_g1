@@ -1,17 +1,26 @@
 import express, { Express, Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+
+// 1. Import the DB config and routes
+import { connectDB } from "./config/db";
+import categoryRoutes from "./routes/categoryRoutes";
+
 dotenv.config();
 
 const app: Express = express();
 const PORT = process.env.PORT || 5000;
 
 // Connect to MongoDB
+connectDB(); // 2. Execute the connection
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// 3. Register the Category routes
+app.use("/api/categories", categoryRoutes);
 
 // Health check route
 app.get("/", (_req: Request, res: Response) => {
