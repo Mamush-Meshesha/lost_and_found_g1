@@ -3,18 +3,19 @@ export type ItemCategory = 'Electronics' | 'Keys' | 'Wallets & Cards' | 'Pets' |
 export type ItemStatus = 'ACTIVE' | 'RESOLVED';
 
 export interface IUser {
-  id: string;
+  _id: string;
   name: string;
   email: string;
   avatar?: string;
 }
 
 export interface IItem {
-  id: string;
+  _id: string;
   title: string;
   description: string;
   category: ItemCategory;
   type: ItemType;
+  images: string[];
   location: string;
   date: string;
   imageUrl?: string;

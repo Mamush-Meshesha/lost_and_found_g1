@@ -15,20 +15,20 @@ const getHeaders = () => {
 
 export const api = {
   // Auth
-  async login(email: string) {
+  async login(email: string, password: string) {
     const res = await fetch(`${API_BASE}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email }),
+      body: JSON.stringify({ email, password }),
     });
     return res.json();
   },
 
-  async register(name: string, email: string) {
+  async register(userName: string, email: string, password: string) {
     const res = await fetch(`${API_BASE}/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email }),
+      body: JSON.stringify({ userName, email, password }),
     });
     return res.json();
   },
@@ -92,4 +92,8 @@ export const api = {
     });
     return res.json();
   },
+  async getCategories(): Promise<{ success: boolean; categories: string[] }> {
+    const res = await fetch(`${API_BASE}/categories`);
+    return res.json();
+  }
 };
