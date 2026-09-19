@@ -1,8 +1,11 @@
 import express, { Express, Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import itemRoutes from "./routes/itemRoutes.js";
-import connectDB from "./config/db.js";
+import itemRoutes from "./routes/itemRoutes";
+import { connectDB } from "./config/db";
+import categoryRoutes from "./routes/categoryRoutes";
+import authRoutes from "./routes/authRoutes";
+
 dotenv.config();
 
 const app: Express = express();
@@ -23,18 +26,16 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// 3. Register the Category routes
+// Routes
 app.use("/api/categories", categoryRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/items", itemRoutes);
 
 // Health check route
 app.get("/", (_req: Request, res: Response) => {
-  res.status(200).json({ success: true, message: "server  is running" });
+  res.status(200).json({ success: true, message: "server is running" });
 });
 
-app.use("/api/items", itemRoutes);
-
 app.listen(PORT, () => {
-  connectDB();
   console.log(`Server running on http://localhost:${PORT}`);
 });
