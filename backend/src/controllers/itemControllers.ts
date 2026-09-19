@@ -3,6 +3,11 @@ import Item from "../models/items.js";
 import Proof from "../models/proof.js";
 import { uploadToCloudinary } from "../lib/cloudinary.js";
 
+const createItem = async (req: any, res: Response) => {
+  try {
+    const files = req.files as Express.Multer.File[];
+    const imageUrls: string[] = [];
+
 import { Request } from "express";
 
 interface AuthRequest extends Request {
