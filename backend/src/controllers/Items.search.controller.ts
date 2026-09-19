@@ -1,16 +1,16 @@
 import { Request, Response } from "express";
-import { FilterQuery } from "mongoose";
-import Item, { IItem } from "../models/items";
+import Item from "../models/items";
 import { runSearchAiMatch } from "./Items.search.ai.controller";
 
+type ItemStatus = "active" | "recovered" | "closed";
 
-export async function searchReports(
+export async function searchItems(
   req: Request,
   res: Response
 ): Promise<void> {
   try {
     const { q, categoryId, status, location, sort, ai } = req.query;
-    const filter: FilterQuery<IItem> = {};
+    const filter: Record<string, unknown> = {};
 
     if (typeof q === "string" && q.trim()) {
       const pattern = q.trim();
@@ -25,7 +25,7 @@ export async function searchReports(
     }
 
     if (typeof status === "string" && status.trim()) {
-      filter.status = status.trim() as IItem["status"];
+      filter.status = status.trim() as ItemStatus;
     }
 
     if (typeof location === "string" && location.trim()) {

@@ -2,7 +2,7 @@ import express, { Express, Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { connectDB } from "./config/db";
-import reportRoutes from "./routes/itemRoutes";
+import itemsRoutes from "./routes/itemRoutes";
 dotenv.config();
 
 const app: Express = express();
@@ -18,7 +18,7 @@ app.get("/", (_req: Request, res: Response) => {
   res.status(200).json({ success: true, message: "MERN backend is running" });
 });
 
-app.use("/api/reports", reportRoutes);
+app.use("/api/items", itemsRoutes);
 
 
 const startApp = async () => {

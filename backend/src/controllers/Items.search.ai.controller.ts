@@ -33,9 +33,7 @@ type ItemLike = {
   status: string;
 };
 
-/**
- * Scores filtered items against a search query via the Cursor SDK.
- */
+
 export async function runSearchAiMatch(
   rawQuery: string,
   filteredItems: ItemLike[]
