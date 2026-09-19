@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import express from 'express';
 import { 
   getCategories, 
   createCategory, 
@@ -6,16 +6,22 @@ import {
   deleteCategory 
 } from '../controllers/categoryControllers.js';
 
-const router = Router();
+// 1. Import your auth middleware
+import authMiddleware from '../middleware/authMiddleware.js'; 
 
-// Routes for /api/categories
+const router = express.Router();
+
+// PUBLIC ROUTE: Anyone can view categories. No middleware here.
 router.route('/')
-  .get(getCategories)
-  .post(createCategory);
+  .get(getCategories);
 
-// Routes for /api/categories/:id
+// PROTECTED ROUTES: Only logged-in users with a valid token can do these.
+// We insert authMiddleware right before the controller function.
+router.route('/')
+  .post(authMiddleware, createCategory);
+
 router.route('/:id')
-  .put(updateCategory)
-  .delete(deleteCategory);
+  .put(authMiddleware, updateCategory)
+  .delete(authMiddleware, deleteCategory);
 
 export default router;
