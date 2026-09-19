@@ -4,7 +4,7 @@ const categorySchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'Please add a category name'],
-    unique: true, // Prevents duplicate categories (e.g., two "Electronics" categories)
+    unique: true,
     trim: true,
     maxlength: [50, 'Name cannot be more than 50 characters']
   },
@@ -13,9 +13,9 @@ const categorySchema = new mongoose.Schema({
     trim: true,
     maxlength: [200, 'Description cannot exceed 200 characters']
   },
- 
 }, {
-  timestamps: true // Adds createdAt and updatedAt
+  timestamps: true 
 });
 
-module.exports = mongoose.model('Category', categorySchema);
+// CHANGE THIS LINE: Use export default instead of module.exports
+export default mongoose.model('Category', categorySchema);
