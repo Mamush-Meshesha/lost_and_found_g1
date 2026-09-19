@@ -1,12 +1,9 @@
 import { Request, Response } from "express";
 import { FilterQuery } from "mongoose";
 import Item, { IItem } from "../models/items";
-import { runSearchAiMatch } from "./report.search.ai.controller";
+import { runSearchAiMatch } from "./Items.search.ai.controller";
 
-/**
- * GET /api/reports — Milestone 2 search / filter / sort
- * Query params: q, categoryId, status, location, sort (asc|desc), ai (true)
- */
+
 export async function searchReports(
   req: Request,
   res: Response
