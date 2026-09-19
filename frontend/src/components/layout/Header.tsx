@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Container from '../common/Container';
-import Button from '../button'; // wait, let's import from '../common/Button'
+import Button from '../common/Button'; // wait, let's import from '../common/Button'
 import { NAV_ITEMS } from '../../config/navigation';
 import { useSmoothScroll } from '../../hooks/useSmoothScroll';
 import { useActiveSection } from '../../hooks/useActiveSection';
