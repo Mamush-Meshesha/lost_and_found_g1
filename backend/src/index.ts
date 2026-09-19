@@ -3,8 +3,9 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 // 1. Import the DB config and routes
-import { connectDB } from "./config/db";
-import categoryRoutes from "./routes/categoryRoutes";
+import { connectDB } from "./config/db.js";
+import categoryRoutes from "./routes/categoryRoutes.js";
+import itemRoutes from "./routes/itemRoutes.js"
 
 dotenv.config();
 
