@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { Schema, model, Document, Types } from "mongoose";
 
 export interface IItem extends Document {
@@ -21,7 +22,7 @@ const itemSchema = new Schema<IItem>(
     userId: {
       type: Schema.Types.ObjectId,
       ref: "User",
-      required: true,
+      required: false,
     },
     categoryId: {
       type: Schema.Types.ObjectId,
@@ -68,4 +69,6 @@ const itemSchema = new Schema<IItem>(
   }
 );
 
-export default model<IItem>("Item", itemSchema);
+const Item = mongoose.model("Item", itemSchema);
+
+export default Item;
