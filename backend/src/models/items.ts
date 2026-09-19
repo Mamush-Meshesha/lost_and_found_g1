@@ -1,25 +1,39 @@
 import mongoose from "mongoose";
+import { Schema, model, Document, Types } from "mongoose";
 
-const itemSchema = new mongoose.Schema(
+export interface IItem extends Document {
+  userId: Types.ObjectId;
+  categoryId: Types.ObjectId;
+  title: string;
+  description: string;
+  lostDate: Date;
+  location: {
+    address: string;
+  };
+  images: string[];
+  privateDetails: string | null;
+  status: "active" | "recovered" | "closed";
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const itemSchema = new Schema<IItem>(
   {
     userId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "User",
       required: false,
     },
-
     categoryId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "Category",
       required: true,
     },
-
     title: {
       type: String,
       required: true,
       trim: true,
     },
-
     description: {
       type: String,
       required: true,
@@ -30,14 +44,12 @@ const itemSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
-
     location: {
       address: {
         type: String,
         required: true,
       },
     },
-
     images: [
       {
         type: String,
@@ -48,7 +60,6 @@ const itemSchema = new mongoose.Schema(
       type: String,
       default: null,
     },
-
     status: {
       type: String,
       enum: ["active", "recovered", "closed"],

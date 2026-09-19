@@ -1,19 +1,24 @@
 import express, { Express, Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-
-// 1. Import the DB config and routes
-import { connectDB } from "./config/db.js";
+import itemRoutes from "./routes/itemRoutes.js";
+import {connectDB} from "./config/db.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
-import itemRoutes from "./routes/itemRoutes.js"
-
+import authRoutes from "./routes/authRoutes.js";
 dotenv.config();
 
 const app: Express = express();
 const PORT = process.env.PORT || 5000;
 
 // Connect to MongoDB
-connectDB(); // 2. Execute the connection
+connectDB()
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch((error) => {
+    console.error("MongoDB connection error:", error);
+    process.exit(1);
+  });
 
 // Middleware
 app.use(cors());
@@ -22,6 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // 3. Register the Category routes
 app.use("/api/categories", categoryRoutes);
+app.use("/api/auth", authRoutes);
 
 // Health check route
 app.get("/", (_req: Request, res: Response) => {
