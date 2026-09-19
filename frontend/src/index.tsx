@@ -5,6 +5,7 @@ import store from "./app/store";
 import App from "./App";
 import "./index.css";
 
+
 const rootElement = document.getElementById("root");
 
 if (!rootElement) {

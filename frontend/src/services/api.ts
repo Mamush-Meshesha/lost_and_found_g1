@@ -92,4 +92,8 @@ export const api = {
     });
     return res.json();
   },
+  async getCategories(): Promise<{ success: boolean; categories: string[] }> {
+    const res = await fetch(`${API_BASE}/categories`);
+    return res.json();
+  }
 };
