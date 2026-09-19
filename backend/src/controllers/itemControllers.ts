@@ -1,14 +1,7 @@
-import { Response } from "express";
+import { Response, Request } from "express";
 import Item from "../models/items.js";
 import Proof from "../models/proof.js";
 import { uploadToCloudinary } from "../lib/cloudinary.js";
-
-const createItem = async (req: any, res: Response) => {
-  try {
-    const files = req.files as Express.Multer.File[];
-    const imageUrls: string[] = [];
-
-import { Request } from "express";
 
 interface AuthRequest extends Request {
   user?: any;
@@ -32,20 +25,38 @@ const createItem = async (req: AuthRequest, res: Response) => {
       });
     }
 
-    const files = req.files as Express.Multer.File[];
+    const files = req.files as Express.Multer.File[] | undefined;
+    if ((files?.length ?? 0) > 0 && !process.env.CLOUDINARY_CLOUD_NAME) {
+      return res.status(400).json({
+        success: false,
+        message: "Image upload is not configured. Remove the images and try again.",
+      });
+    }
+
     const imageUrls: string[] = [];
 
-    // Upload images to Cloudinary
     for (const file of files || []) {
       const result = await uploadToCloudinary(file.buffer);
       imageUrls.push(result.secure_url);
     }
 
-    // Parse location when using multipart/form-data
-    const location =
-      typeof req.body.location === "string"
-        ? JSON.parse(req.body.location)
-        : req.body.location;
+    let location = req.body.location;
+    if (typeof location === "string") {
+      try {
+        location = JSON.parse(location);
+      } catch {
+        return res.status(400).json({
+          success: false,
+          message: "Location must include an address",
+        });
+      }
+    }
+    if (!location?.address || !String(location.address).trim()) {
+      return res.status(400).json({
+        success: false,
+        message: "Location address is required",
+      });
+    }
 
     const item = await Item.create({
       ...req.body,
@@ -70,8 +81,7 @@ const createItem = async (req: AuthRequest, res: Response) => {
   }
 };
 
-
-const getItems = async (_req: any, res: Response) => {
+const getItems = async (_req: Request, res: Response) => {
   try {
     const items = await Item.find().select("-privateDetails");
     res.status(200).json(items);
@@ -112,8 +122,15 @@ const getItemById = async (req: AuthRequest, res: Response) => {
   }
 };
 
-const updateItem = async (req: any, res: Response) => {
+const updateItem = async (req: AuthRequest, res: Response) => {
   try {
+    if (!req.user?.id) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized",
+      });
+    }
+
     const files = req.files as Express.Multer.File[];
     const imageUrls: string[] = [];
 
@@ -134,20 +151,30 @@ const updateItem = async (req: any, res: Response) => {
     if (location) {
       req.body.location = location;
     }
+
     const updatedItem = await Item.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
+
     if (!updatedItem) {
       return res.status(404).json({ message: "Item not found" });
     }
+
     res.status(200).json(updatedItem);
   } catch (error) {
     res.status(500).json({ message: "Error updating item", error });
   }
 };
 
-const deleteItem = async (req: any, res: Response) => {
+const deleteItem = async (req: AuthRequest, res: Response) => {
   try {
+    if (!req.user?.id) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized",
+      });
+    }
+
     const deletedItem = await Item.findByIdAndDelete(req.params.id);
     if (!deletedItem) {
       return res.status(404).json({ message: "Item not found" });

@@ -1,6 +1,11 @@
 import { Request, Response } from "express";
+import mongoose from "mongoose";
 import Item from "../models/items.js";
 import { runSearchAiMatch } from "./Items.search.ai.controller.js";
+
+function escapeRegex(value: string) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
 
 type ItemStatus = "active" | "recovered" | "closed";
 
@@ -13,7 +18,7 @@ export async function searchItems(
     const filter: Record<string, unknown> = {};
 
     if (typeof q === "string" && q.trim()) {
-      const pattern = q.trim();
+      const pattern = escapeRegex(q.trim());
       filter.$or = [
         { title: { $regex: pattern, $options: "i" } },
         { description: { $regex: pattern, $options: "i" } },
@@ -21,6 +26,10 @@ export async function searchItems(
     }
 
     if (typeof categoryId === "string" && categoryId.trim()) {
+      if (!mongoose.isValidObjectId(categoryId.trim())) {
+        res.status(400).json({ success: false, message: "Invalid category" });
+        return;
+      }
       filter.categoryId = categoryId.trim();
     }
 
