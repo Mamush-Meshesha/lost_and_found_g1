@@ -21,6 +21,7 @@
   "dependencies": {
     "bcrypt": "^6.0.0",
     "cloudinary": "^2.11.0",
+    "@cursor/sdk": "^1.0.31",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
     "express": "^4.19.2",

@@ -22,3 +22,10 @@ router.patch("/:id",authMiddleware, upload.array("images", 5), updateItem);
 router.delete("/:id", authMiddleware, deleteItem);
 
 export default router;
+import { searchItems } from "../controllers/Items.search.controller";
+
+const router = Router();
+
+router.get("/", searchItems);
+
+export default router;
