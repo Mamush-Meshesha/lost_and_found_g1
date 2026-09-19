@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import Item from "../models/items";
-import { runSearchAiMatch } from "./Items.search.ai.controller";
+import Item from "../models/items.js";
+import { runSearchAiMatch } from "./Items.search.ai.controller.js";
 
 type ItemStatus = "active" | "recovered" | "closed";
 
