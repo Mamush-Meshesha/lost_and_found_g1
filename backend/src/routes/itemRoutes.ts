@@ -4,11 +4,11 @@ import  authMiddleware  from "../middleware/authMiddleware.js";
 
 import {
   createItem,
-  getItems,
   getItemById,
   updateItem,
   deleteItem,
 } from "../controllers/itemControllers.js";
+import { searchItems } from "../controllers/Items.search.controller.js";
 import {
   submitProof,
   getItemProofs,
@@ -17,18 +17,16 @@ import {
 
 const router = Router();
 
-// Public
-router.get("/", authMiddleware, getItems);
-router.get("/:id",authMiddleware, getItemById);
-
-// Asker answers the item's proof question. Holder accepts or rejects.
+router.get("/", authMiddleware, searchItems);
+router.get("/:id", authMiddleware, getItemById);
 router.post("/:id/proof", authMiddleware, submitProof);
 router.get("/:id/proof", authMiddleware, getItemProofs);
 router.patch("/:id/proof/:proofId", authMiddleware, reviewProof);
 
-// Authenticated
 router.post("/", authMiddleware, upload.array("images", 5), createItem);
-router.patch("/:id",authMiddleware, upload.array("images", 5), updateItem);
+router.patch("/:id", authMiddleware, upload.array("images", 5), updateItem);
 router.delete("/:id", authMiddleware, deleteItem);
+
+
 
 export default router;

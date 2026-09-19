@@ -5,6 +5,7 @@ import itemRoutes from "./routes/itemRoutes.js";
 import {connectDB} from "./config/db.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+
 dotenv.config();
 
 const app: Express = express();

@@ -1,36 +1,69 @@
-export type ItemType = 'LOST' | 'FOUND';
-export type ItemCategory = 'Electronics' | 'Keys' | 'Wallets & Cards' | 'Pets' | 'Clothing' | 'Documents' | 'Jewelry' | 'Other';
-export type ItemStatus = 'ACTIVE' | 'RESOLVED';
+export type ItemStatus = "active" | "recovered" | "closed";
+export type ProofStatus = "pending" | "accepted" | "rejected";
 
 export interface IUser {
   _id: string;
-  name: string;
+  userName: string;
   email: string;
-  avatar?: string;
+}
+
+export interface ICategory {
+  _id: string;
+  name: string;
+  description?: string;
 }
 
 export interface IItem {
   _id: string;
+  userId: string;
+  categoryId: string | ICategory;
   title: string;
   description: string;
-  category: ItemCategory;
-  type: ItemType;
+  lostDate: string;
+  location: { address: string };
   images: string[];
-  location: string;
-  date: string;
-  imageUrl?: string;
-  contactEmail: string;
-  contactPhone?: string;
+  privateDetails: string | null;
+  question: string;
   status: ItemStatus;
-  userId: string;
-  userName: string;
-  userEmail: string;
   createdAt: string;
   updatedAt: string;
 }
 
-export interface IMatchResult {
-  item: IItem;
+export interface IProof {
+  _id: string;
+  itemId: string;
+  holderId: string;
+  askerId: string;
+  question: string;
+  answer: string;
+  status: ProofStatus;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface IAiMatch {
+  id: string;
   score: number;
-  reasons: string[];
+  item?: {
+    id: string;
+    title: string;
+    description: string;
+    location: string;
+    status: string;
+  };
+}
+
+export interface IAiMatchResult {
+  matchFound: boolean;
+  matches: IAiMatch[];
+  queryUsed: string;
+  error?: string;
+}
+
+export interface ISearchResponse {
+  success: boolean;
+  count: number;
+  data: IItem[];
+  aiMatch?: IAiMatchResult;
+  message?: string;
 }
