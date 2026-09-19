@@ -6,10 +6,12 @@ import { useSmoothScroll } from '../../hooks/useSmoothScroll';
 import { useActiveSection } from '../../hooks/useActiveSection';
 import { MenuIcon, XIcon, CodeIcon, ArrowRightIcon } from '../common/Icons';
 import ButtonComponent from '../common/Button';
+import { useNavigate } from 'react-router-dom';
 
 export const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
 
   const sectionIds = ['home', 'problems', 'about', 'technology'];
   const activeSection = useActiveSection(sectionIds, 90);
@@ -157,9 +159,9 @@ export const Header: React.FC = () => {
               variant="primary"
               size="sm"
               icon={<ArrowRightIcon size={16} />}
-              onClick={() => scrollToSection('problems')}
+              onClick={() => navigate("/login")}
             >
-              Explore Problems
+              login
             </ButtonComponent>
           </div>
 
@@ -244,11 +246,10 @@ export const Header: React.FC = () => {
               fullWidth
               icon={<ArrowRightIcon size={16} />}
               onClick={() => {
-                scrollToSection('problems');
-                setMobileMenuOpen(false);
+                navigate("/login")
               }}
             >
-              Explore Problems
+              login
             </ButtonComponent>
           </div>
         </div>

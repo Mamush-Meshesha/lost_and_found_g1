@@ -1,22 +1,27 @@
-import React from 'react';
-import Layout from './components/layout/Layout';
-import LostFoundApp from './components/LostFoundApp';
-import HeroSection from './components/sections/HeroSection';
-import ProblemsSection from './components/sections/ProblemsSection';
-import ProblemShellsSection from './components/sections/ProblemShellsSection';
-import AboutSection from './components/sections/AboutSection';
-import TechnologySection from './components/sections/TechnologySection';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Layout from "./components/layout/Layout";
+import { Header } from "./components/layout/Header";
+import Auth from "./components/auth/Layout";
+import LoginUser from "./pages/auth/Login";
+import RegisterUser from "./pages/auth/Register";
 
 function App() {
   return (
-    <Layout>
-      <LostFoundApp />
-      <HeroSection />
-      <ProblemsSection />
-      <ProblemShellsSection />
-      <AboutSection />
-      <TechnologySection />
-    </Layout>
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Layout />} />
+        <Route element={<Auth />}>
+          <Route
+            path="/login"
+            element={ <LoginUser /> } />
+          <Route
+            path="/register"
+            element={<RegisterUser/>}
+          />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

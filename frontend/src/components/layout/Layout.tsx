@@ -1,24 +1,21 @@
 import React from 'react';
-import Header from './Header';
 import Footer from './Footer';
+import { HeroSection } from '../sections/HeroSection';
 
-export interface LayoutProps {
-  children: React.ReactNode;
-}
 
-export const Layout: React.FC<LayoutProps> = ({ children }) => {
+export const Layout = () => {
   return (
     <div
       style={{
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100vh',
-        backgroundColor: 'var(--color-bg)',
-        color: 'var(--color-text)',
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
+        backgroundColor: "var(--color-bg)",
+        color: "var(--color-text)",
       }}
     >
-      <Header />
-      <main style={{ flex: '1 0 auto' }}>{children}</main>
+      <HeroSection />
+      
       <Footer />
     </div>
   );
