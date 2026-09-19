@@ -269,6 +269,7 @@
   version "0.2.3"
   resolved "https://registry.npmjs.org/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
+
 "@bufbuild/protobuf@^1.10.0", "@bufbuild/protobuf@1.10.0":
   version "1.10.0"
   resolved "https://registry.npmjs.org/@bufbuild/protobuf/-/protobuf-1.10.0.tgz"
@@ -297,6 +298,39 @@
   integrity sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
+
+"@cursor/sdk-linux-x64@1.0.31":
+  version "1.0.31"
+  resolved "https://registry.npmjs.org/@cursor/sdk-linux-x64/-/sdk-linux-x64-1.0.31.tgz"
+  integrity sha512-y+ahiKQvEISUn9y6z75jwKjLQkrJ/nY7ehL1Vi9X8zdbjz14fiEtMTICAHccTiTq5cf6dZjXC5QfPdJRat6dhg==
+
+"@cursor/sdk@^1.0.31":
+  version "1.0.31"
+  resolved "https://registry.npmjs.org/@cursor/sdk/-/sdk-1.0.31.tgz"
+  integrity sha512-0SdJQqp5oXn81oJqIVkLpgHih+CL6CAudK83pCsdJyA23AvInSWlMaGpLi+JlrK3efHoswiEhhASs9WpeEz3QQ==
+  dependencies:
+    "@bufbuild/protobuf" "1.10.0"
+    "@connectrpc/connect" "^1.6.1"
+    "@connectrpc/connect-node" "^1.6.1"
+    "@connectrpc/connect-web" "^1.6.1"
+    "@statsig/js-client" "3.31.0"
+    zod "^3.25.0"
+  optionalDependencies:
+    "@cursor/sdk-darwin-arm64" "1.0.31"
+    "@cursor/sdk-darwin-x64" "1.0.31"
+    "@cursor/sdk-linux-arm64" "1.0.31"
+    "@cursor/sdk-linux-x64" "1.0.31"
+    "@cursor/sdk-win32-x64" "1.0.31"
+
+"@esbuild/linux-x64@0.28.2":
+  version "0.28.2"
+  resolved "https://registry.npmjs.org/@esbuild/linux-x64/-/linux-x64-0.28.2.tgz"
+  integrity sha512-4xTZr1FUmSoQW4XIWmit3tzQrUTZM+N3P0XV8xROKYF50XfI7xeO90+1bZvNwxIufQ9hDQVRJH5YhgPVF8A/HQ==
+
+"@fastify/busboy@^2.0.0":
+  version "2.1.1"
+  resolved "https://registry.npmjs.org/@fastify/busboy/-/busboy-2.1.1.tgz"
+  integrity sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==
 
 "@isaacs/cliui@^8.0.2":
   version "8.0.2"
@@ -573,35 +607,6 @@
     "@jridgewell/trace-mapping" "^0.3.24"
 
 "@jridgewell/resolve-uri@^3.0.3", "@jridgewell/resolve-uri@^3.1.0":
-"@cursor/sdk-linux-x64@1.0.31":
-  version "1.0.31"
-  resolved "https://registry.npmjs.org/@cursor/sdk-linux-x64/-/sdk-linux-x64-1.0.31.tgz"
-  integrity sha512-y+ahiKQvEISUn9y6z75jwKjLQkrJ/nY7ehL1Vi9X8zdbjz14fiEtMTICAHccTiTq5cf6dZjXC5QfPdJRat6dhg==
-
-"@cursor/sdk@^1.0.31":
-  version "1.0.31"
-  resolved "https://registry.npmjs.org/@cursor/sdk/-/sdk-1.0.31.tgz"
-  integrity sha512-0SdJQqp5oXn81oJqIVkLpgHih+CL6CAudK83pCsdJyA23AvInSWlMaGpLi+JlrK3efHoswiEhhASs9WpeEz3QQ==
-  dependencies:
-    "@bufbuild/protobuf" "1.10.0"
-    "@connectrpc/connect" "^1.6.1"
-    "@connectrpc/connect-node" "^1.6.1"
-    "@connectrpc/connect-web" "^1.6.1"
-    "@statsig/js-client" "3.31.0"
-    zod "^3.25.0"
-  optionalDependencies:
-    "@cursor/sdk-darwin-arm64" "1.0.31"
-    "@cursor/sdk-darwin-x64" "1.0.31"
-    "@cursor/sdk-linux-arm64" "1.0.31"
-    "@cursor/sdk-linux-x64" "1.0.31"
-    "@cursor/sdk-win32-x64" "1.0.31"
-
-"@fastify/busboy@^2.0.0":
-  version "2.1.1"
-  resolved "https://registry.npmjs.org/@fastify/busboy/-/busboy-2.1.1.tgz"
-  integrity sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==
-
-"@jridgewell/resolve-uri@^3.0.3":
   version "3.1.2"
   resolved "https://registry.npmjs.org/@jridgewell/resolve-uri/-/resolve-uri-3.1.2.tgz"
   integrity sha512-bRISgCIjP20/tbWSPWMEi54QVPRZExkuD9lJL+UIxUKtwVJA8wW1Trb1jMs1RFXo1CBTNZ/5hpC9QvmKWdopKw==
@@ -739,6 +744,7 @@
   integrity sha512-DsG+8/LscQIQg68J6Ef3dv10u6nVyetYn923s3/sus5eaGfTo1of5WMZSLf0UJc9KDuKPilPH0UDJCjvNbDNCA==
   dependencies:
     "@sinonjs/commons" "^3.0.1"
+
 "@statsig/client-core@3.31.0":
   version "3.31.0"
   resolved "https://registry.npmjs.org/@statsig/client-core/-/client-core-3.31.0.tgz"
@@ -1665,6 +1671,38 @@ es-set-tostringtag@^2.1.0:
     get-intrinsic "^1.2.6"
     has-tostringtag "^1.0.2"
     hasown "^2.0.2"
+
+esbuild@~0.28.0:
+  version "0.28.2"
+  resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.28.2.tgz"
+  integrity sha512-HKVLS8dvII+xoKW9kmqxbRKrnWEXfJJr/FZhhJmiqIB0e053QNYFqOBouTMO/k5sID4MvCiUCvv8b9M4h32wIA==
+  optionalDependencies:
+    "@esbuild/aix-ppc64" "0.28.2"
+    "@esbuild/android-arm" "0.28.2"
+    "@esbuild/android-arm64" "0.28.2"
+    "@esbuild/android-x64" "0.28.2"
+    "@esbuild/darwin-arm64" "0.28.2"
+    "@esbuild/darwin-x64" "0.28.2"
+    "@esbuild/freebsd-arm64" "0.28.2"
+    "@esbuild/freebsd-x64" "0.28.2"
+    "@esbuild/linux-arm" "0.28.2"
+    "@esbuild/linux-arm64" "0.28.2"
+    "@esbuild/linux-ia32" "0.28.2"
+    "@esbuild/linux-loong64" "0.28.2"
+    "@esbuild/linux-mips64el" "0.28.2"
+    "@esbuild/linux-ppc64" "0.28.2"
+    "@esbuild/linux-riscv64" "0.28.2"
+    "@esbuild/linux-s390x" "0.28.2"
+    "@esbuild/linux-x64" "0.28.2"
+    "@esbuild/netbsd-arm64" "0.28.2"
+    "@esbuild/netbsd-x64" "0.28.2"
+    "@esbuild/openbsd-arm64" "0.28.2"
+    "@esbuild/openbsd-x64" "0.28.2"
+    "@esbuild/openharmony-arm64" "0.28.2"
+    "@esbuild/sunos-x64" "0.28.2"
+    "@esbuild/win32-arm64" "0.28.2"
+    "@esbuild/win32-ia32" "0.28.2"
+    "@esbuild/win32-x64" "0.28.2"
 
 escalade@^3.1.1, escalade@^3.2.0:
   version "3.2.0"
@@ -3443,6 +3481,15 @@ ts-node@^10.9.2, ts-node@>=9.0.0:
     v8-compile-cache-lib "^3.0.1"
     yn "3.1.1"
 
+tsx@^4.23.13:
+  version "4.23.13"
+  resolved "https://registry.npmjs.org/tsx/-/tsx-4.23.13.tgz"
+  integrity sha512-BL5MGkRln6aDYhb0xbQlEAGw743BaZYWdbWtdJOBriYJboKgUUYCadFp2/FpBBZquBC/ezNBn7wMMPx7FDZUDw==
+  dependencies:
+    esbuild "~0.28.0"
+  optionalDependencies:
+    fsevents "~2.3.3"
+
 type-detect@4.0.8:
   version "4.0.8"
   resolved "https://registry.npmjs.org/type-detect/-/type-detect-4.0.8.tgz"
@@ -3662,6 +3709,7 @@ yocto-queue@^0.1.0:
   version "0.1.0"
   resolved "https://registry.npmjs.org/yocto-queue/-/yocto-queue-0.1.0.tgz"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
+
 zod@^3.25.0:
   version "3.25.76"
   resolved "https://registry.npmjs.org/zod/-/zod-3.25.76.tgz"

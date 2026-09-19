@@ -1,5 +1,5 @@
 import { Agent } from "@cursor/sdk";
-import { truncateQuery } from "../utils/truncateQuery";
+import { truncateQuery } from "../utils/truncateQuery.js";
 
 export type MatchCandidate = {
   id: string;
