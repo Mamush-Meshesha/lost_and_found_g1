@@ -20,6 +20,24 @@ const createItem = async (req: AuthRequest, res: Response) => {
     const files = req.files as Express.Multer.File[];
     const imageUrls: string[] = [];
 
+import { Request } from "express";
+
+interface AuthRequest extends Request {
+  user?: any;
+}
+
+const createItem = async (req: AuthRequest, res: Response) => {
+  try {
+    if (!req.user?.id) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized",
+      });
+    }
+
+    const files = req.files as Express.Multer.File[];
+    const imageUrls: string[] = [];
+
     // Upload images to Cloudinary
     for (const file of files || []) {
       const result = await uploadToCloudinary(file.buffer);
@@ -34,6 +52,7 @@ const createItem = async (req: AuthRequest, res: Response) => {
 
     const item = await Item.create({
       ...req.body,
+      //   userId: req.userId,
 
       // Always get userId from the authenticated user
       userId: req.user.id,
