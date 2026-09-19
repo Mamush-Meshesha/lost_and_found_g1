@@ -12,6 +12,7 @@ export interface IItem extends Document {
   };
   images: string[];
   privateDetails: string | null;
+  question: string; 
   status: "active" | "recovered" | "closed";
   createdAt: Date;
   updatedAt: Date;
@@ -58,6 +59,11 @@ const itemSchema = new Schema<IItem>(
       type: String,
       default: null,
     },
+    question: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     status: {
       type: String,
       enum: ["active", "recovered", "closed"],
@@ -69,6 +75,6 @@ const itemSchema = new Schema<IItem>(
   }
 );
 
-const Item = mongoose.model("Item", itemSchema);
+const Item = mongoose.model<IItem>("Item", itemSchema);
 
 export default Item;

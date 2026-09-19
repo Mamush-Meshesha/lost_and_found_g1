@@ -1,5 +1,6 @@
 import { Response } from "express";
 import Item from "../models/items.js";
+import Proof from "../models/proof.js";
 import { uploadToCloudinary } from "../lib/cloudinary.js";
 
 import { Request } from "express";
@@ -14,6 +15,15 @@ const createItem = async (req: AuthRequest, res: Response) => {
       return res.status(401).json({
         success: false,
         message: "Unauthorized",
+      });
+    }
+
+    const question =
+      typeof req.body.question === "string" ? req.body.question.trim() : "";
+    if (!question) {
+      return res.status(400).json({
+        success: false,
+        message: "A proof question is required",
       });
     }
 
@@ -34,6 +44,7 @@ const createItem = async (req: AuthRequest, res: Response) => {
 
     const item = await Item.create({
       ...req.body,
+      question,
 
       // Always get userId from the authenticated user
       userId: req.user.id,
@@ -57,22 +68,42 @@ const createItem = async (req: AuthRequest, res: Response) => {
 
 const getItems = async (_req: any, res: Response) => {
   try {
-    const items = await Item.find();
+    const items = await Item.find().select("-privateDetails");
     res.status(200).json(items);
   } catch (error) {
     res.status(500).json({ message: "Error fetching items", error });
   }
 };
 
-const getItemById = async (req: any, res: Response) => {
+const getItemById = async (req: AuthRequest, res: Response) => {
   try {
     const item = await Item.findById(req.params.id);
     if (!item) {
       return res.status(404).json({ message: "Item not found" });
     }
-    res.status(200).json(item);
+
+    const payload = item.toObject();
+    const viewerId = req.user?.id;
+    const isHolder =
+      Boolean(item.userId) && String(item.userId) === String(viewerId);
+
+    let canSeePrivate = isHolder;
+    if (!canSeePrivate && viewerId) {
+      const accepted = await Proof.exists({
+        itemId: item._id,
+        askerId: viewerId,
+        status: "accepted",
+      });
+      canSeePrivate = Boolean(accepted);
+    }
+
+    if (!canSeePrivate) {
+      payload.privateDetails = null;
+    }
+
+    return res.status(200).json(payload);
   } catch (error) {
-    res.status(500).json({ message: "Error fetching item", error });
+    return res.status(500).json({ message: "Error fetching item", error });
   }
 };
 
