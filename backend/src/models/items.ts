@@ -39,6 +39,7 @@ const itemSchema = new Schema<IItem>(
       required: true,
       trim: true,
     },
+
     lostDate: {
       type: Date,
       required: true,
@@ -54,6 +55,7 @@ const itemSchema = new Schema<IItem>(
         type: String,
       },
     ],
+
     privateDetails: {
       type: String,
       default: null,

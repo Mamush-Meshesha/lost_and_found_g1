@@ -2,6 +2,11 @@ import { Response } from "express";
 import Item from "../models/items.js";
 import { uploadToCloudinary } from "../lib/cloudinary.js";
 
+const createItem = async (req: any, res: Response) => {
+  try {
+    const files = req.files as Express.Multer.File[];
+    const imageUrls: string[] = [];
+
 import { Request } from "express";
 
 interface AuthRequest extends Request {
@@ -34,6 +39,7 @@ const createItem = async (req: AuthRequest, res: Response) => {
 
     const item = await Item.create({
       ...req.body,
+      //   userId: req.userId,
 
       // Always get userId from the authenticated user
       userId: req.user.id,
