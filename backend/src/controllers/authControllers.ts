@@ -30,13 +30,13 @@ export const registerUser = async (req: Request, res: Response) => {
       password: hashedPassword,
     });
 
-    res.status(201).json({
+    return res.status(201).json({
       success: true,
       message: "User successfully registered!",
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: "Internal server error!",
     });
@@ -80,14 +80,14 @@ export const loginUser = async (req: Request, res: Response) => {
       { expiresIn: "1d" }
     );
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       message: "User successfully logged in!",
       token,
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
+   return res.status(500).json({
       success: false,
       message: "Internal server error!",
     });

@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import authRoutes from "./routes/authRoutes"
 
 // 1. Import the DB config and routes
 import { connectDB } from "./config/db";
@@ -21,6 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // 3. Register the Category routes
 app.use("/api/categories", categoryRoutes);
+app.use("/api/auth", authRoutes);
 
 // Health check route
 app.get("/", (_req: Request, res: Response) => {
