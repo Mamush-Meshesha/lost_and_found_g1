@@ -5,11 +5,11 @@
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
-  "dev": "tsx watch src/index.ts",
-  "build": "tsc",
-  "start": "node dist/index.ts",
-  "lint": "tsc --noEmit"
-},
+    "dev": "node init && tsx watch src/index.ts",
+    "build": "node init && tsc",
+    "start": "node init && node dist/index.ts",
+    "lint": "tsc --noEmit"
+  },
   "keywords": [
     "mern",
     "typescript",
@@ -19,6 +19,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@cursor/sdk": "^1.0.31",
     "bcrypt": "^6.0.0",
     "cloudinary": "^2.11.0",
     "cors": "^2.8.5",
