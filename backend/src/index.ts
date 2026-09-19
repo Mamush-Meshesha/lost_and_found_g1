@@ -23,6 +23,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// 3. Register the Category routes
+app.use("/api/categories", categoryRoutes);
+app.use("/api/auth", authRoutes);
+
 // Health check route
 app.get("/", (_req: Request, res: Response) => {
   res.status(200).json({ success: true, message: "server  is running" });
